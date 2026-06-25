@@ -1,0 +1,40 @@
+name: review-agent
+
+# Automated PR review. Runs the stack-agnostic review agent under
+# .claude/agents/review-agent/ on every (non-draft) pull request.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write   # required to submit a review (APPROVE / REQUEST_CHANGES / COMMENT)
+
+# Non-blocking: a failed review run should never block the PR.
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: .claude/agents/review-agent/requirements.txt
+
+      - name: Install dependencies
+        working-directory: .claude/agents/review-agent
+        run: pip install -q -r requirements.txt
+
+      - name: Run review agent
+        working-directory: .claude/agents/review-agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: point at a proxy/gateway instead of api.anthropic.com
+          # ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
+        run: python review.py

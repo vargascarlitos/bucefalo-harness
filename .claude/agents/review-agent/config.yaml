@@ -1,0 +1,29 @@
+# Review-agent configuration (optional — sensible defaults apply if this file is absent).
+# All values are stack-agnostic knobs. Nothing here is required.
+
+# Which specialists to run (each maps to prompts/<name>_specialist.md).
+specialists:
+  - correctness
+  - security
+  - tests
+
+# Model per role. Use the cheapest model that does the job for the high-volume specialists.
+models:
+  orchestrator: claude-sonnet-4-6
+  correctness:  claude-sonnet-4-6
+  security:     claude-sonnet-4-6
+  tests:        claude-haiku-4-5-20251001
+
+# Hard cap on how much diff is sent to the model (characters).
+max_diff_chars: 150000
+
+# Optional: a conventions file fed to every specialist as context (repo-relative).
+# Point this at your project's CLAUDE.md / CONTRIBUTING once you have one.
+# conventions_file: CLAUDE.md
+
+# Optional: locate the PR's linked work-item spec so the tests specialist can check
+# acceptance criteria. `{ticket}` is replaced with the id parsed from the PR title/branch.
+# spec_glob: specs/work-items/*{ticket}*.md
+
+# Regex used to extract a ticket id from the PR title or head branch (default below).
+# ticket_id_regex: '[A-Z][A-Z0-9]+-\d+'

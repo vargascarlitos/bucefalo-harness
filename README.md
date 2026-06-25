@@ -79,8 +79,13 @@ MCP (`clickup_get_workspace_members` / `clickup_resolve_assignees`).
 /review-outcome  → QA outcome; pass → Done, fail → QA Reject
 ```
 
+Also included: a **CI review-agent** for **GitHub Actions** — stack-agnostic, runs three
+specialists (correctness / security / tests) on every PR and submits an approve / request-changes
+review. See `.github/workflows/review-agent.yml` and
+[`.claude/agents/review-agent/`](.claude/agents/review-agent/README.md).
+
 Deferred to later phases (not in this template yet): `create-chunk`, `update-plan`,
-feedback/`ai-insights`/`improve-agents`, `mutation-tests`, the CI `review-agent`.
+feedback/`ai-insights`/`improve-agents`, `mutation-tests`.
 
 ## Filling in Layer 3 (when your stack is known)
 
