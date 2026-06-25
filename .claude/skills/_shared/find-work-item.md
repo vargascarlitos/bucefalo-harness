@@ -1,8 +1,8 @@
 # Shared: Find Work Item (ClickUp)
 
 Resolves a ClickUp work item from a user-supplied reference, using the local spec file as
-a fast path to skip a ClickUp round-trip when possible. No SQLite cache — resolution is
-via the local spec frontmatter and the ClickUp MCP.
+a fast path to skip a ClickUp round-trip when possible. Resolution is via the local spec
+frontmatter and the ClickUp MCP.
 
 ## Accepted reference forms
 

@@ -45,8 +45,8 @@ def find_chunk_dir(spec_path):
     raw = m.group(1).strip().strip("\"'")
     # YAML null (chunk_spec: null / ~ / none) means "no chunk" — not a real path.
     # Without this, a standalone ticket's literal "null" resolves to specs/ and the
-    # whole specs tree gets audited (false positives). Chunks are deferred in the
-    # core-loop template, so this is the common case.
+    # whole specs tree gets audited (false positives). Standalone tickets with no
+    # chunk_spec are common, so this matters.
     if raw.lower() in ("null", "none", "nil", "~", ""):
         return None, None
     chunk_path = (spec_path.parent / raw).resolve()

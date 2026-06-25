@@ -221,9 +221,9 @@ AskUserQuestion:
 Ask: "Any additional notes about what you found or what had to change? (press Enter or
 leave blank to skip)"
 
-> Agent-improvement notes (a free-text prompt that fed the weekly `/improve-agents` cycle
-> in the full harness) are **deferred** — that aggregation pipeline is not in the core-loop
-> template.
+> The `/ai-insights` and `/improve-agents` skills aggregate these `qa-outcome` records. A
+> free-text "agent-improvement notes" survey field is not collected here — the structured
+> fields above are the signal.
 
 ---
 
@@ -254,9 +254,8 @@ Post it via **`op: post-workflow-record(task_id, "qa-outcome", payload)`** (see
 `pm-clickup.md`). This writes a task comment with a `**AI workflow — qa-outcome**` heading
 and the JSON in a fenced block so later skills/analytics can parse it.
 
-> The full harness also wrote a `review-outcome.json` file on a shared weekly feedback
-> branch. That **local feedback-record file + feedback branch is deferred** — the
-> machine-readable record lives entirely in the ClickUp comment for the core loop.
+> The machine-readable record lives entirely in the ClickUp comment — no local per-ticket
+> file is written. (`/feedback` writes standalone observations; `/ai-insights` aggregates.)
 
 ---
 

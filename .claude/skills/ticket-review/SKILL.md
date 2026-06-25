@@ -207,5 +207,4 @@ human-readable note on the task so the override is auditable:
 op: add-comment(CLICKUP_ID, "ticket-review forced past readiness gate. Reason: <reason if provided>")
 ```
 
-> Structured feedback/force records (the Plane `specs/feedback/...` JSON files) are
-> deferred — not part of this template's core loop.
+> Structured `--force` override records are **not** part of this template's core loop.

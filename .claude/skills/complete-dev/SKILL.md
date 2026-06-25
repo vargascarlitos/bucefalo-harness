@@ -196,7 +196,7 @@ with each failing gate carrying a `failures` array of `{ category|name, file, li
 
 ## Out of scope (deferred)
 
-The following were part of the original Plane workflow and are **intentionally dropped** from this template's core loop:
+The following are **intentionally not part of** this template's core loop:
 
-- **Passive completion feedback record** (local `specs/feedback/.../complete-dev.json` consumed by `/improve-agents`) — deferred; the `op: post-workflow-record` comment on the ticket carries the same metadata for now.
+- **Passive completion feedback file** (a local `complete-dev.json`) — not written; the `op: post-workflow-record` comment on the ticket carries this metadata, and `/improve-agents` reads it from there.
 - **Surveys, confidence scoring, token-usage tracking** — removed; not part of the core loop.

@@ -24,7 +24,7 @@ Stop.
 
 ## No machine-local config
 
-Unlike the Plane edition, there is **no `.claude/workflow.local.json`**. ClickUp is reached
+There is **no `.claude/workflow.local.json`**. ClickUp is reached
 through the ClickUp MCP (an account-level connector), and user identity is resolved at
 runtime via `op: resolve-current-user` in `pm-clickup.md`. Before the first ClickUp call,
 verify the MCP is reachable with a cheap read (e.g. `clickup_get_list(list_id)`); if it

@@ -6,7 +6,7 @@ directly — they reference the named operations below. To retarget a different 
 rewrite only this file.
 
 All ClickUp access is via the **ClickUp MCP** (account-level claude.ai connector). There
-is no CLI, no SQLite cache, no API key in config. If an MCP tool is not yet loaded, load
+is no CLI, no local cache, no API key in config. If an MCP tool is not yet loaded, load
 its schema with ToolSearch (`select:<tool_name>`) before calling it.
 
 ## Status mapping
@@ -100,8 +100,7 @@ clickup_create_comment(entity_type: "task", entity_id: task_id, comment_text: ma
 Used for human-readable status notes.
 
 ### op: post-workflow-record(task_id, kind, payload)
-Posts a structured, machine-readable record as a task comment. This is the ClickUp
-equivalent of the Plane "ai-workflow" JSON comments — used by `/complete-dev`,
+Posts a structured, machine-readable record as a task comment — used by `/complete-dev`,
 `/pr-review`, `/review-outcome` so later skills/analytics can parse outcomes.
 
 `add-comment(task_id, markdown)` where `markdown` is:

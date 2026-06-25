@@ -106,5 +106,5 @@ Ask: "Export this report as a ClickUp Doc?" If yes, create it with
 config, titled `AI workflow insights — <project_name> — <range>`, body = the report markdown.
 Otherwise finish.
 
-> Confidence-scoring, token-usage tracking, and hole-poking effectiveness metrics from the
-> original Plane harness are **not** part of this template (removed/deferred).
+> Confidence-scoring, token-usage tracking, and hole-poking effectiveness metrics are **not**
+> part of this template.

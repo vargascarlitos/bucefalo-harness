@@ -322,7 +322,7 @@ After the status update:
 1. Print the full content of the local spec file.
 2. If no local spec file exists, display the task description from ClickUp instead (via `op: get-task-description(task_id)`).
 
-> (Chunk-spec resolution and rich design-system context tables are deferred — not in core-loop template.)
+> (This skill surfaces the work-item spec; richer chunk-spec / design-system context is not auto-loaded here.)
 
 ---
 

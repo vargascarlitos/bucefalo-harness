@@ -16,13 +16,13 @@ placeholders you fill in once your project's stack is known.
 | 2. PM-tool integration | ClickUp calls via MCP, centralized in `_shared/pm-clickup.md` | Ported, ready |
 | 3. Product/stack | `CLAUDE.md`, `.claude/rules/`, verify gate commands, review specialists | Placeholders — fill per project |
 
-## Key difference vs the Plane original
+## How the PM integration works
 
-Plane was wired through a Python CLI (`plane_cli.py`) invoked over Bash, plus a SQLite
-cache, plus `PLANE_API_KEY` / `plugin_dir` / `python_bin`. **All of that is gone.**
-ClickUp is reached through the **ClickUp MCP** (an account-level claude.ai connector),
-so skills call MCP tools directly. The entire PM coupling is centralized in one file:
-`.claude/skills/_shared/pm-clickup.md`. Swap that one file to retarget another PM tool.
+ClickUp is reached through the **ClickUp MCP** (an account-level claude.ai connector), so
+skills call MCP tools directly — there is no PM CLI, no local cache, and no API key in
+config. The entire PM coupling is centralized in one file:
+`.claude/skills/_shared/pm-clickup.md` (logical operation → MCP tool + status map). Swap
+that one file to retarget a different PM tool.
 
 ## Prerequisites
 
@@ -65,7 +65,7 @@ Edit `.claude/workflow.json`:
 > **"harness-clickUp"** Space (`90114195110`), which has the 7 harness statuses configured
 > and is used to validate the port. Change them for a real project.
 
-There is **no `workflow.local.json`** in the ClickUp edition — user identity comes from the
+There is **no `.claude/workflow.local.json`** — user identity comes from the
 MCP (`clickup_get_workspace_members` / `clickup_resolve_assignees`).
 
 ## The core loop (what's included)
@@ -111,7 +111,7 @@ verify/implement gate commands, and the review-agent's stack specifics).
 │   ├── _shared/
 │   │   ├── pm-clickup.md       # ★ the entire PM coupling: logical op → MCP tool + status map
 │   │   ├── load-config.md
-│   │   └── find-work-item.md   # clickup_search/filter (no SQLite)
+│   │   └── find-work-item.md   # clickup_search/filter resolution
 │   ├── create-ticket/
 │   ├── ticket-review/
 │   ├── start-ticket/

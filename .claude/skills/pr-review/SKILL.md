@@ -32,9 +32,9 @@ In Review with an MR linked) and precedes `/review-outcome` (QA). The workflow:
 > hardcode status names directly — go through the named operations and the logical states
 > (TODO / IN_PROGRESS / IN_REVIEW / DEV_DONE / QA / QA_REJECT / DONE).
 
-> **Out of scope (deferred):** the CI review-agent (multi-specialist automated review),
-> fusion-agent ingestion, and verdict scoring/calibration are not part of this core-loop
-> template. This skill is the human-driven review only.
+> This skill is the **human-driven** review. The automated CI **review-agent**
+> (`.github/workflows/review-agent.yml`) runs separately on every PR. Fusion-agent
+> ingestion and verdict scoring/calibration are not included.
 
 ---
 
@@ -424,13 +424,10 @@ Post it as a structured ClickUp comment via **`op: post-workflow-record`** (see
 op: post-workflow-record(task_id: <task_id>, kind: "code-review", payload: <the JSON above>)
 ```
 
-This is the ClickUp equivalent of the Plane "ai-workflow" JSON comment — `/review-outcome`
-and any later analytics parse these records.
+`/review-outcome` and any later analytics parse these records.
 
-> **No feedback branch.** The Plane edition wrote this record to a file on a weekly
-> `feedback/<YYYY-WNN>` git branch. In the ClickUp edition the record lives as a task
-> comment, so there is nothing to commit or push. (The feedback-branch / `ai-insights`
-> pipeline is deferred — not part of this core-loop template.)
+> **No feedback branch.** The record lives as a task comment, so there is nothing to commit
+> or push. (Standalone observations go through `/feedback`; aggregation through `/ai-insights`.)
 
 ---
 

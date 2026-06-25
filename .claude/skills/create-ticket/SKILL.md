@@ -24,9 +24,8 @@ file in the configured specs path. The workflow:
 6. Confirm and surface the created task + written file
    </objective>
 
-> **Chunk specs are deferred** — not part of the core-loop template. This skill only
-> creates the ClickUp task and the single work-item spec file. (Chunk authoring lived in
-> `/create-chunk` / `/update-plan` in the full harness.)
+> This skill creates **one** ClickUp task + its work-item spec. To scaffold a whole feature
+> (multiple tickets + chunk specs + a plan) use `/create-chunk` and `/update-plan`.
 
 ---
 
@@ -274,8 +273,8 @@ chunk_spec: null
 _No design reference provided._
 ```
 
-> `parent` / `chunk_spec` stay `null` in the core-loop template (parent linking and chunk
-> specs are deferred — not in core-loop). Link related tasks manually in ClickUp, or use
+> `parent` / `chunk_spec` stay `null` for a standalone ticket. (Chunk-linked tickets are
+> created by `/create-chunk`, which fills `chunk_spec`.) Link related tasks via
 > `op: link-related-task` if needed.
 
 ---
