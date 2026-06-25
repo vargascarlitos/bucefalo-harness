@@ -84,8 +84,14 @@ specialists (correctness / security / tests) on every PR and submits an approve 
 review. See `.github/workflows/review-agent.yml` and
 [`.claude/agents/review-agent/`](.claude/agents/review-agent/README.md).
 
-Deferred to later phases (not in this template yet): `create-chunk`, `update-plan`,
-feedback/`ai-insights`/`improve-agents`, `mutation-tests`.
+Also included (beyond the core loop):
+- **Chunk authoring:** `/create-chunk` (scaffold a feature + its tickets), `/update-plan`.
+- **Feedback pipeline:** `/feedback` (log an observation), `/ai-insights` (aggregate the
+  workflow records into a report), `/improve-agents` (cluster patterns → low-risk harness edits → GitHub PR).
+- **`/mutation-tests`** — mutation-testing orchestrator (tool + commands are project placeholders).
+
+The only thing left to fill per project is **Layer 3** (stack rules in `.claude/rules/`, the
+verify/implement gate commands, and the review-agent's stack specifics).
 
 ## Filling in Layer 3 (when your stack is known)
 
