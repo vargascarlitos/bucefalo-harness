@@ -1,0 +1,22 @@
+{
+  "project_name": "Harness Test",
+  "id_prefix": "TASK",
+  "specs_path": "specs/work-items",
+  "pm_tool": "clickup",
+  "clickup": {
+    "workspace_id": "9011814629",
+    "space_id": "90114195110",
+    "list_id": "901114014067",
+    "list_url": "https://app.clickup.com/9011814629/v/l/li/901114014067",
+    "use_custom_task_ids": false,
+    "states": {
+      "todo": "Todo",
+      "in_progress": "In Progress",
+      "in_review": "In Review",
+      "dev_done": "Dev Done",
+      "qa": "QA",
+      "qa_reject": "QA Reject",
+      "done": "Done"
+    }
+  }
+}

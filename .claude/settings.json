@@ -1,0 +1,19 @@
+{
+  "enabledPlugins": {},
+  "permissions": {
+    "allow": ["Edit(.claude/**)"]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)/.claude/hooks/audit-docs-hook.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}

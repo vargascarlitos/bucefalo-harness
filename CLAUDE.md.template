@@ -1,0 +1,100 @@
+<!--
+  CLAUDE.md.template — rename to CLAUDE.md and fill the {{PLACEHOLDERS}} once your
+  project's stack is known. This is "Layer 3" (product/stack-specific) of the harness.
+  Anything in {{double braces}} or marked (stack-specific) must be completed per project.
+-->
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this project is
+
+{{ONE-PARAGRAPH PROJECT DESCRIPTION — what it does, who the users are.}}
+
+## Commands
+
+{{The canonical build/dev/test/lint commands. These feed the `verify` agent's gates —
+keep them in sync with `.claude/agents/verify/system-prompt.md` placeholders.}}
+
+```bash
+# examples — replace with your stack's real commands
+{{DEV_CMD}}          # run the app locally
+{{TEST_CMD}}         # run the test suite
+{{TYPECHECK_CMD}}    # static type check (omit if N/A)
+{{LINT_CMD}}         # lint
+{{FORMAT_CMD}}       # format --verify
+```
+
+### Test output policy
+
+Use quiet/dot reporters that show detail only on failures — never verbose reporters that
+expand every passing test. {{Add the per-runner flags for your stack.}}
+
+## Repository structure
+
+```
+{{TREE — top-level dirs and what each holds.}}
+```
+
+## Architecture
+
+{{Key architectural facts an agent must know: services, data stores, auth, integrations,
+state machines. Keep it short and load-bearing.}}
+
+## Coding conventions
+
+Detailed, path-scoped coding patterns live in `.claude/rules/`. Each rule file is scoped
+via YAML frontmatter so it only loads when Claude reads matching files. {{List your rule
+files and their globs once you add them, e.g. `backend.md` on `api/**/*.ts`.}}
+
+## AI workflow (the harness)
+
+This repo carries a Claude Code harness ported to **ClickUp** (via the ClickUp MCP). See
+`README.md` for the full layer model and setup. The core loop:
+
+- **`/create-ticket`** — create a ClickUp task + local work-item spec (`specs/work-items/`)
+- **`/ticket-review`** — readiness gate (Acceptance Criteria, Edge Cases, Scope required)
+- **`/start-ticket`** — gate → branch → dispatch `implement` agent → chain `/complete-dev`
+- **`/complete-dev`** — dispatch `verify` agent; pass → In Review + MR, fail → In Progress
+- **`/pr-review`** — code review; approve → Dev Done, changes → In Progress
+- **`/review-outcome`** — QA outcome; pass → Done, fail → QA Reject
+
+All project-management operations route through `.claude/skills/_shared/pm-clickup.md`
+(the single ClickUp coupling point). PM config + the status map live in
+`.claude/workflow.json`.
+
+### Work-item template
+
+Every work item in `specs/work-items/` follows `specs/work-items/_template.md`, which
+requires three sections before AI work begins: **Acceptance Criteria** (Given/When/Then),
+**Edge Cases & Error States**, and **Scope** (in/out + dependencies). The `/ticket-review`
+gate enforces this.
+
+## Branch and commit conventions
+
+Branch prefixes: `feat/`, `fix/`, `chore/`, `docs/`, `refactor/`
+Commits use Conventional Commits: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`
+
+**Before committing:** scan staged files for secrets — never commit API keys, tokens,
+connection strings, or credentials.
+
+### Running git commands
+
+Never prepend `cd <path> &&` to a git command — bare `git` auto-discovers the repo. Use
+`git -C <path>` if you must target another worktree.
+
+### Working on a pre-existing branch
+
+Before changing anything on a branch that already exists, sync with main first:
+
+```bash
+git fetch origin
+git merge origin/main
+```
+
+## CI gates (must pass before merge)
+
+```bash
+{{TEST_CMD}} && {{TYPECHECK_CMD}} && {{LINT_CMD}} && {{FORMAT_CMD}} --verify-no-changes
+```
