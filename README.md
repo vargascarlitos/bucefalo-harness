@@ -70,6 +70,9 @@ MCP (`clickup_get_workspace_members` / `clickup_resolve_assignees`).
 
 ## El core loop (qué incluye)
 
+> 📖 ¿Querés verlo en acción? El [`TUTORIAL.md`](TUTORIAL.md) recorre el loop completo de punta
+> a punta con un ticket de ejemplo, paso por paso.
+
 ```
 /create-ticket   → crea la task de ClickUp + el spec local del work-item
 /ticket-review   → gate de readiness (mecánico + semántico + cross-layer)
